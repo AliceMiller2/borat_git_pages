@@ -1,0 +1,851 @@
+<html lang="en"><head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"> <!-- icons import -->
+	<!--<link rel="stylesheet" href="styles.css">-->
+    <title>My Version</title>
+  </head>
+  
+	<style>
+
+* { box-sizing: border-box; }
+
+.clientSide_Output_row {
+    display: flex;
+    flex-direction: column;      
+    justify-content: center;
+    background-color: #ffffff;
+    border-radius: 8px;
+    padding: 12px 14px;
+    margin: 10px 0;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.08);
+}
+
+
+.CSO_row_LHS {
+    width: 100%;
+    text-align: center;
+    margin-bottom: 10px;
+    cursor: pointer;
+}
+
+.CSO_row_LHS p {
+    margin: 0;
+    color: #222;
+    font-size: 1rem;
+    font-weight: 500;
+}
+
+.CSO_row_rightSidePart_area {
+    display: flex;
+    justify-content: center;   
+    align-items: center;
+    gap: 15%;                 
+    width: 100%;
+}
+
+
+.CSO_row_RHS_dwld_btn, .CSO_row_RHS_uploadCSV_btn {
+    width: 25%;
+    min-width: 100px;
+    max-width: 240px;
+    text-align: center;
+    background-color: #3cb043;
+    color: #fff;
+    border: none;
+    border-radius: 6px;
+    padding: 5px 0;
+    font-size: 0.9rem;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.15s ease-in-out;
+}
+
+.CSO_row_RHS_dwld_btn:hover, .CSO_row_RHS_uploadCSV_btn:hover {
+    background-color: #2e8b2e;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 8px rgba(0,0,0,0.08);
+}
+
+
+.CSO_row_messageContent {
+    display: none;
+    background-color: #f7fbf7;
+    padding: 12px 14px;
+    border-left: 4px solid #3cb043;
+    margin-top: 6px;
+    border-radius: 0 0 8px 8px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.04);
+}
+
+
+.CSO_row_lower_hiddenPart_perRound_msg {
+    background-color: #eafbea;
+    padding: 8px 10px;
+    margin: 6px 0;
+    border-radius: 6px;
+    font-size: 0.95rem;
+}
+
+#initalFloatingBox{
+	width:62%;
+	padding:1%;
+	background-color:burlywood;
+	margin-left:19%;
+    z-index: 3;	
+	display:block;
+	position: absolute;
+	margin-top:0.5%;
+	border-radius:5px;
+	
+}
+#floatBoxCover {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%; /* vh means percent of viewport ...?*/
+	height: 100vh; 
+    z-index: 2;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: block;
+}
+.closeBoxBtn{
+	float:right;
+	coor:#ffffff;
+	
+}
+.closeBoxBtn:hover{
+	color:#f0f0f1;
+}
+#mainPage{
+	width:74%;
+	margin-left:13%;	
+	margin-top:2%
+}
+
+#InputsSection{
+
+	padding:1%;
+	background-color:aliceblue;
+
+}
+.formInputBoxes{
+	border:1px solid #bfbfbf;
+	border-radius:5px;
+	padding:0.6%;
+	font-size:20px;
+	padding-left:1%;
+	width:96%;
+	margin:1%;
+	
+}
+#QueryButton{
+	border:none;
+	border-radius:4px;
+	color:white;
+	background-color:#0000ff;
+	padding:1%;
+	font-size:18px;
+}
+a:link, a:visited, a:hover, a:active {
+  text-decoration: none;
+}
+#QueryButton:hover{
+	background-color:#9999FF;
+}
+#errorBox{
+	color:red;
+	font-style:bold;
+	
+}
+.boxCentering{
+	justify-content: center; 
+	align-items: center;
+	width:100%;
+	  display: flex;
+}
+
+.clearButton{
+	color:white
+	background-color:white;
+	
+
+}
+.clearButton:hover{
+	color:white
+	background-color:white;
+	
+
+}
+
+#outputsSection{
+	display:none;
+}
+
+
+@media (max-width: 520px) {
+    .CSO_row_rightSidePart_area {
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .CSO_row_RHS_dwld_btn,
+    .CSO_row_RHS_uploadCSV_btn {
+        width: 80%;
+        max-width: none;
+    }
+}
+
+.categoryLabel {
+    margin-right: 16px;
+}
+
+
+.categoryFilterClass{
+    transform: scale(1.3);
+    vertical-align: middle;
+}
+
+	</style>
+  
+  <body>
+    <div id="floatBoxCover" onclick="closeObject('floatBoxCover')">
+		<div id="initalFloatingBox" onclick="event.stopPropagation();" >
+			
+			<div id="actualContent">
+				<div class="closeBoxBtn" onclick="closeObject('floatBoxCover')"><i class="fa fa-close"></i></div>
+				<div>
+					<h3>BoRAT - Breakout Room Allocation schedule Tool</h3>
+					<!-- add in the description of the site -->
+					<p>This page will produce an allocation schedule that will allow you to specify group membership for students when creating Zoom breakout rooms.</p>
+
+					<p>Each generated allocation schedule comprises a set of 'rounds', where each round is a set of student groups. The primary constraint for an allocation schedule is that no two students will be paired with each other more than once.</p>
+
+					<p>To generate an allocation schedule, you need to specify:</p>
+
+					<ol>
+						<li>the number of students in your class, a number between 6 and 150 (and some instances for up to 204)</li>
+						<li>the number of rounds required</li>
+					</ol>
+
+					<p>The range of this second number will vary depending on class size (for example, ten rounds for a class of fifteen is impossible), and it should be a number between 3 and 40. You will be able to see all allocation schedules with at least this number of rounds. If no such allocations exist try reducing the number of rounds.</p>
+
+					<p>Note that you do not specify the  size of the groups: the system will automatically generate
+					<a href="#" data-toggle="popover" title="" data-html="true" data-bs-placement="auto left" data-content="For a set of v participants, a good balanced allocation schedule is a balanced allocation schedule for which:
+						&lt;ol&gt;
+						&lt;li&gt;there are at most 2 group sizes,&lt;/li&gt;
+						&lt;li&gt;group sizes differ by at most 1,&lt;/li&gt;
+						&lt;li&gt;every round has the same distribution of group sizes,&lt;/li&gt;
+						&lt;li&gt;if v ≥ 12 all groups have size at least 3,&lt;/li&gt;
+						&lt;li&gt;If v ≥ 20 and there are two group sizes then all groups have size between 4 and 6.&lt;/li&gt;
+						&lt;/ol&gt;" data-original-title="Definition">good balanced allocation schedules</a>.  More than one allocation schedule may be available for your combination of class size and number of rounds.</p>
+				</div>
+			</div>
+		</div>
+	</div>
+	
+	
+	<div id="mainPage">
+		<div id="InputsSection">
+
+			<div id="inputsTitleSection">
+				<h3>Your requirements</h3>
+			</div>
+
+
+			<div>
+				<form id="allocationForm">
+					<div class="">
+
+						<input type="number" name="participantsForm" class="formInputBoxes" id="participantsForm" onchange="listBoxCreation()" placeholder="Class size">
+						
+						<p id="errorBox"></p>
+					</div>
+					
+					<!-- This section need to render X groups for Y input number of participants -->
+					<div id="category-filters" style="margin-left:1rem;">
+						
+					</div>
+					<div id="extraFields" style="display:none">
+						<input type="number" name="roundsForm"       class="formInputBoxes" id="roundsForm" onchange="vaidateForm()" placeholder="Number of rounds">
+					</div>
+				</form>
+					<script>
+
+					
+						function clearSearch() { // clears the input form and sets all to blank
+							document.getElementById('participantsForm').value = '';
+							document.getElementById('roundsForm').value = '';
+
+							// unchecking all the tick boxes
+							document.querySelectorAll('.categoryFilterClass').forEach(cb => {
+								cb.checked = false;
+							});
+							
+							
+							// clear search results?
+							
+						}
+					</script>
+				<div class="boxCentering">
+					<div id="QueryButton" type="button">
+					  Find allocations
+					</div>
+				</div>
+
+
+			</div>
+
+		</div>
+
+		<script>
+		
+		function closeObject(id){  document.getElementById(id).style.display = "none";  }
+		
+		function inputTests(input){
+			// returns "" as the ok string. if its not "", then display error msg
+			// checks basic numerical values, whilst still allowing empty inputs
+			//console.log(input);
+			if(input=="" || isNaN(input)){ // checks for empty or NaN like stuff - bypasses it all as we can allow empty strings here
+				return "";
+			}
+			if(input < 1){
+				return "Please enter a positive value for ";
+			}
+			if(!Number.isInteger(input)){
+				return "Please enter a whole number for ";
+			}
+			return "";
+		}
+		
+		
+		
+		function vaidateForm(){
+			//console.log("Validating");
+			const numParticipants = parseInt(document.getElementById("participantsForm").value, 10);
+			const numRounds = parseInt(document.getElementById("roundsForm").value, 10);
+			// no need for check boxes - if anything, this function could display them
+			
+			//console.log("Participants: " + numParticipants + "\nRounds: " + numRounds);
+			
+			var errorMsg = "";
+			
+			// required number please
+			if (isNaN(numParticipants)) {
+				errorMsg = "Please enter the Number of Participants";
+			}
+			
+			var X = inputTests(numParticipants);
+			if(X!=""){
+				errorMsg = X + "Number of Participants";
+			}
+			
+			X = inputTests(numRounds);
+			if(X!=""){
+				errorMsg = X + "Number of Rounds";
+			}		
+			
+			if(errorMsg=="" && numParticipants<numRounds){
+				errorMsg = "Number of Rounds is greater than the Number of participants";
+				//console.log("This check will fail");
+			}
+			/*
+				Here, enter tests to confirm that such combination  COULD work 
+					- not wether or  not we have an alocation, but wether its theoretically possible 
+					Or at least, rule out the impossible ones
+					if no allocation is made, have seperate section for asking / warning about new generation
+				
+				For each test, if errorMsg still equals "", check the condition. else, skip to end. when it fails, alter errorMsg for output
+				
+				ideally, enter teh checks in order of importance
+				
+				
+			*/
+
+
+				
+			document.getElementById("errorBox").innerHTML  = errorMsg;
+			//document.getElementById("outputsSection").style.display = "block";
+			return ""==errorMsg;
+		}
+			
+		function testGeneration(startVal=3,endVal=1000){
+			
+			var failValues = []
+			for(var i=startVal;i<endVal;i++){
+				console.log("\n Run: " + i.toString());
+				var Run = generateListOfPossibleGroupSizes(i);
+				console.log(Run);
+				console.log("\n");
+				
+			}
+			return failValues;
+	
+		}		
+		
+		function createTickBoxes(items){
+		
+			items = items.sort((a, b) => a - b);
+			var out = "<label style='font-size:21px; margin-right:3%'>Ideal Group Size:</label><select name='category' class='categoryFilterClass' > ";
+			if(items.length<1){
+				
+				out = "<p>Sorry. There are no group sizes available.</p>";
+			}else if(items.length>9999999){
+				out = "<p>Sorry. The number of participants is too large.</p>";
+			}else{
+				for(var i=0;i<items.length;i++){
+					var thisVal = items[i].toString();
+					if(thisVal == "4"){
+						out = out + "<option value='4'>4 and 5</option>";
+					}else if(thisVal == "6"){
+						out = out + "<option value='6'>5 and 6</option>";
+						
+					}else if(thisVal == "5"){
+						out = out + "";
+					}else{
+//						out = out + "<label class='categoryLabel' ><input class='categoryFilterClass' type='checkbox' name='category' value='"+thisVal+"'><span style='margin-left:3px'></span>"+thisVal+"  </label>";
+						out = out + "<option value="+thisVal+">"+thisVal+"</option>";
+					}
+				}
+			}
+			
+			out = out + "</select>";
+			document.getElementById("category-filters").innerHTML = out;
+	
+		}
+		
+		function listBoxCreation(){
+			// get number of participants
+			
+			vaidateForm();
+			
+			//console.log("Creating list boxes");
+			var  numParts = parseInt(document.getElementById("participantsForm").value, 10);
+				
+			// generate list of possible values
+			var vals = generateListOfPossibleGroupSizes(numParts);
+			//console.log("Values determined");
+			
+			// generate/load the txt box items
+			createTickBoxes(vals);
+			//console.log("done. ");			
+		}
+		
+		
+		function generateListOfPossibleGroupSizes(inParts){
+			
+			var valuesThatAreAlwaysThere = [4,5,6];
+		
+			var N = inParts;
+			/*
+			
+				Should generate the list values that are required for the ideal group size tick box
+				starts from i=3 cause pairs or 3s are simple / not required. 
+				
+				initally starts by finding all divisors of N, and all the values +1 or -1 away from these divisors 
+						(ie the ones where the remainer would be 1 or i-1, as these are often put into groups that have 1 more or less people
+					
+				when inputed, filters out duplicates...
+					
+				then, filter out the values who have a easy to find multiple of tehmselves later in the list
+					eg, if 18 is a group size, dont do groups of 6 or 9 (?) 
+					or do 10 but not 5... ie, just you can just split them in 2.
+				
+				
+				curerntly (Early 2026) only groups of 5 or 6 are used when not exact divisors. 
+				
+				
+				
+				now appears to produce all numbers for some values.. ie, large values tend towards ALL divisors ~ up to sqrt(N)
+				
+				
+				
+			*/
+			
+			var fullDivisors = [];
+			var otherDivisors = [];
+			var fullList = [...valuesThatAreAlwaysThere];
+			
+			for(var i=3;i<Math.sqrt(N)+1;i++){
+				
+				if(N % i === 0){
+
+					if(false && i-1<Math.sqrt(N)){ 
+						if (!fullList.includes(i-1)) {
+							otherDivisors.push(i-1);
+							fullList.push(i-1);
+						}
+					}			
+
+					if (!fullList.includes(i)) {
+						fullList.push(i);
+					}
+					fullDivisors.push(i);
+					
+					if(false && i+1<Math.sqrt(N)){
+						if (!fullList.includes(i+1)) {
+							otherDivisors.push(i+1);
+							fullList.push(i+1);
+						}
+					}
+
+
+				
+				}
+			}
+			
+
+/*			
+			console.log(Math.sqrt(N));
+			console.log(fullDivisors);
+			console.log("\n");
+			console.log(otherDivisors);
+			*/
+			return fullList;
+		}
+		
+		
+		function showData(ID){
+			// checks the current style property and then changes it to the other alternatives
+			var E = document.getElementById(ID).style.display;
+			if (E === "block") {
+				document.getElementById(ID).style.display = "none";
+			} else {
+				document.getElementById(ID).style.display = "block";
+			}
+		}
+		
+		const form = document.getElementById('allocationForm');
+		const queryButton = document.getElementById('QueryButton');
+
+		/// the downloadable content may go here
+		const allocationTextStore = {};
+
+
+		queryButton.addEventListener('click', () => {
+			form.dispatchEvent(new Event('submit'));
+		});
+		
+		const allocationList = []; // will store allocations as strings, one per entry
+
+		document.getElementById('QueryButton').addEventListener('click', getData);
+
+
+		async function getData() {
+		
+			if(vaidateForm()==false){
+				return;
+			}
+		
+			const form = document.getElementById('allocationForm');
+			const formData = new FormData(form);
+			let classSize = formData.get('participantsForm');
+			let numRounds = formData.get('roundsForm');
+			let selectedCategories = Array.from(document.querySelectorAll('input[name="category"]:checked')).map(cb => cb.value);
+			
+			if(classSize==""){
+				classSize = -1;
+			}
+			if(numRounds==""){
+				numRounds = -1;
+			}
+			
+			//const API_URL = `http://localhost/COMPUTING_PROJECT/api.php?size=${classSize}&rounds=${numRounds}&categories=${encodeURIComponent(selectedCategories.join(','))}`;
+			
+			const API_URL = `https://borat.glasgow.ac.uk/api.php?size=${classSize}&rounds=${numRounds}&categories=${encodeURIComponent(selectedCategories.join(','))}`;
+			
+			
+			
+			console.log(API_URL);
+			let data;
+			try {
+				const response = await fetch(API_URL);
+				console.log("Fetching data");
+				data = await response.json();
+				console.log("Data arrived");
+				console.log(data);
+			} catch (e) {
+				console.error("Fetch or parsing failed:", e);
+				document.getElementById("allocations_thePlaceThatEverythingGoesOutTo").innerHTML = "<div><p>Sorry. But we could not retrive any records. <br> Please check your connection.</p></div>";
+				document.getElementById("outputsSection").style.display = "block";
+				return;
+			}
+
+			allocationList.length = 0; // clear old data
+
+			if (!Array.isArray(data) || data.length === 0) {
+				document.getElementById("allocations_thePlaceThatEverythingGoesOutTo").innerHTML = "<p>Sorry, No matches found<br>Please try altering your filters. </p>";
+				document.getElementById("outputsSection").style.display = "block";
+				return;
+			}
+
+			let html = "";
+
+			data.forEach((item, idx) => {
+				let jsonMsg;
+				try {
+					jsonMsg = JSON.parse(item.message);
+				} catch {
+					jsonMsg = [];
+				}
+
+				let txtOutput = "";
+
+				let miniOutput = "<div>";
+				jsonMsg.forEach((roundData, roundIdx) => {
+					miniOutput += "<div class='CSO_row_lower_hiddenPart_perRound_msg'>";
+					miniOutput += "<p>Round: " + (roundIdx + 1) + "</p>";
+					miniOutput += "<p>" + stringList(roundData) + "</p>";
+					miniOutput += "</div>";
+
+
+					txtOutput += `Round ${roundIdx + 1}:\n${stringList(roundData)}\n\n`;
+				});
+				miniOutput += "</div>";
+
+				allocationList.push(txtOutput); // save string for download
+
+				html += "<div class='clientSide_Output_row'>" +
+							"<div class='clientSide_Output_row_mainPart'>" +
+								"<div class='CSO_row_LHS' onclick='showData(\"msg_" + idx + "\")'>" +
+									"<p>" + item.participants + " participants for " + item.rounds + " rounds with " + item.group_size + "</p>" +
+								"</div>" +
+								"<div class='CSO_row_rightSidePart_area'>" +
+									"<div class='CSO_row_RHS_dwld_btn' onclick='downloadFile(" + idx + ")'><p>Download allocation</p></div>" +
+									"<div class='CSO_row_RHS_uploadCSV_btn' onclick='parseAndDownload(" + idx + ")'><p>Parse Email addresses</p></div>" +
+								"</div>" +
+							"</div>" +
+							"<div class='CSO_row_messageContent' id='msg_" + idx + "'>" +
+								miniOutput +
+							"</div>" +
+						"</div>";
+
+
+			});
+
+			document.getElementById("allocations_thePlaceThatEverythingGoesOutTo").innerHTML = html;
+			document.getElementById("outputsSection").style.display = "block";
+		}
+
+
+		function downloadFile(idx) {
+			const text = allocationList[idx];
+			if (!text) {
+				alert("No allocation text found for this entry.");
+				return;
+			}
+			const blob = new Blob([text], { type: 'text/plain' });
+			const a = document.createElement('a');
+			a.href = URL.createObjectURL(blob);
+			a.download = `allocation_${idx + 1}.txt`;
+			document.body.appendChild(a);
+			a.click();
+			document.body.removeChild(a);
+			setTimeout(() => URL.revokeObjectURL(a.href), 100);
+		}
+
+
+		function parseAndDownload(idx) {
+			const csvInput = document.createElement("input");
+			csvInput.type = "file";
+			csvInput.accept = ".csv";
+
+			csvInput.onchange = () => {
+				const file = csvInput.files[0];
+				if (!file) return;
+
+				const reader = new FileReader();
+				reader.onload = (e) => {
+					const rows = e.target.result.trim().split(/\r?\n/);
+					const emailLookup = rows.map((name, i) => ({ id: i, name: name.trim() }));
+
+					const originalText = allocationList[idx]; // original numeric allocation - dont replace
+					const lines = originalText.split('\n');
+
+					// Safety check for CSV length - warn or inform the user of such occurance
+					const allNumbers = originalText.match(/\d+/g)?.map(n => parseInt(n, 10)) || [];
+					const maxId = Math.max(...allNumbers);
+					if (maxId >= emailLookup.length) {
+						const proceed = confirm(
+							"Warning: Your CSV has fewer names than the highest ID in the allocation.\n" +
+							"Some IDs will appear as Unknown().\n\nDo you want to continue?"
+						);
+						if (!proceed) return;
+					}
+
+					function stringifyList(X) {
+						if (!Array.isArray(X)) return X;
+						return '[' + X.map(el => Array.isArray(el) ? stringifyList(el) : el).join(', ') + ']';
+					}
+
+					const convertedLines = lines.map(line => {
+						line = line.trim();
+						if (!line.startsWith('[')) return line; // keep Round X: lines
+
+						// Parse the array safely
+						let arr;
+						try {
+							arr = eval(line); // safe here: controlled numeric arrays
+						} catch (e) {
+							console.error("Failed to evaluate line:", line, e);
+							return line;
+						}
+
+						// Recursively replace numbers with names
+						function replaceIds(x) {
+							return x.map(el => {
+								if (Array.isArray(el)) return replaceIds(el);
+								const entry = emailLookup[parseInt(el, 10)];
+								return entry ? entry.name : `Unknown(${el})`;
+							});
+						}
+
+						const converted = replaceIds(arr);
+
+						return stringifyList(converted);
+					});
+
+					const convertedText = convertedLines.join('\n');
+
+					// Download the converted allocation
+					const blob = new Blob([convertedText], { type: 'text/plain' });
+					const a = document.createElement('a');
+					a.href = URL.createObjectURL(blob);
+					a.download = `allocation_${idx + 1}_names.txt`;
+					document.body.appendChild(a);
+					a.click();
+					document.body.removeChild(a);
+					setTimeout(() => URL.revokeObjectURL(a.href), 100);
+				};
+
+				reader.readAsText(file);
+			};
+
+			csvInput.click();
+		}
+
+
+		function stringList(X) {
+			let out = "[";
+			X.forEach((row, i) => {
+				out += "[";
+				row.forEach((el, j) => {
+					if (Array.isArray(el)) {
+						out += "[" + el.join(", ") + "]";
+					} else {
+						out += String(el);
+					}
+					if (j < row.length - 1) out += ", ";
+				});
+				out += "]";
+				if (i < X.length - 1) out += ", ";
+			});
+			out += "]";
+			return out;
+		}
+		</script>
+		
+		<div id="outputsSection">
+			<div id="out_title">
+				<h3>Matching allocations for <span id="out_NumberOfParticipants"></span> participants over <span id="out_numRounds"></span> rounds</h3>
+				<div id="allocations_thePlaceThatEverythingGoesOutTo"></div>
+				<div style="text-align:center">
+					<button class="clearButton CSO_row_RHS_dwld_btn" style="background-color:red" onclick="clearSearch()">Clear search</button>
+				</div>
+			</div>
+		
+		</div>
+	</div>
+
+
+		<div class="max-auto container mt-3">
+			<div class="row">
+				<div class="col-sm">
+					<p>Provided by the School of Computing Science at the University of Glasgow.</p>
+				</div>
+			</div>
+		</div>
+
+<!--  page nav experimentation here - cand elete
+<div>
+	<style>
+	
+	.pagination {
+    display: flex;
+    gap: 6px;
+    justify-content: centre;
+    margin: 20px 0;
+}
+
+.page,
+.dots {
+    min-width: 36px;
+    height: 36px;
+    padding: 0 10px;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+    background: #fff;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+@media (max-width: 600px) {
+    .page:not(.active):not(.prev):not(.next) {
+        display: none;
+    }
+}
+
+.page:hover:not(.active):not(:disabled) {
+    background: #f0f0f0;
+}
+
+.page.active {
+    background: #333;
+    color: #fff;
+    border-color: #333;
+    cursor: default;
+}
+
+.page:disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+}
+
+.dots {
+    border: none;
+    cursor: default;
+}
+
+	
+	</style>
+	<div >
+
+<nav class="pagination">
+    <button class="page prev" disabled>‹</button>
+
+    <button class="page active">1</button>
+    <button class="page">2</button>
+    <button class="page">3</button>
+    <span class="dots">…</span>
+    <button class="page">12</button>
+
+    <button class="page next">›</button>
+</nav>
+
+	
+	
+	</div>
+
+
+</div>-->
+
+
+<span id="PING_IFRAME_FORM_DETECTION" style="display: none;"></span>
+
+</body></html>
