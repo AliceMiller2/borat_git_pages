@@ -419,7 +419,7 @@ a:link, a:visited, a:hover, a:active {
 	
 	function generateListOfPossibleGroupSizes(inParts){	
 			
-		var valuesThatAreAlwaysThere = [4,6];
+		var valuesThatAreAlwaysThere = [4,6, -1];
 		var N = inParts;
 		var fullDivisors = [];
 		var otherDivisors = [];
@@ -472,9 +472,10 @@ a:link, a:visited, a:hover, a:active {
 					out = out + "<option value='4'>4 and 5</option>";
 				}else if(thisVal == "6"){
 					out = out + "<option value='6'>5 and 6</option>";
-					
 				}else if(thisVal == "5"){
 					out = out + "";
+				}else if(thisVal == "-1"){
+					out = out + "<option value='-1'>Any</option>";
 				}else{
 					out = out + "<option value="+thisVal+">"+thisVal+"</option>";
 				}
