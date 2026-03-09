@@ -619,81 +619,80 @@ a:link, a:visited, a:hover, a:active {
 		setTimeout(() => URL.revokeObjectURL(a.href), 100);
 	}
 
-	function parseAndDownload(idx) {
-		const csvInput = document.createElement("input");
-		csvInput.type = "file";
-		csvInput.accept = ".csv";
+function parseAndDownload(idx) {
+    const csvInput = document.createElement("input");
+    csvInput.type = "file";
+    csvInput.accept = ".csv";
 
-		csvInput.onchange = () => {
-			const file = csvInput.files[0];
-			if (!file) return;
+    csvInput.onchange = () => {
+        const file = csvInput.files[0];
+        if (!file) return;
 
-			const reader = new FileReader();
-			reader.onload = (e) => {
-				const rows = e.target.result.trim().split(/\r?\n/);
-				const emailLookup = rows.map((name, i) => ({ id: i, name: name.trim() }));
+        const reader = new FileReader();
+        reader.onload = (e) => {
+            const rows = e.target.result.trim().split(/\r?\n/);
+            const emailLookup = rows.map((name, i) => ({ id: i, name: name.trim() }));
 
-				const originalText = allocationList[idx]; // original numeric allocation - dont replace
+            const originalText = allocationList[idx]; // original numeric allocation
+            const lines = originalText.trim().split(/\r?\n/); // split into lines
 
-				const allNumbers = originalText.match(/\d+/g)?.map(n => parseInt(n, 10)) || [];
-				const maxId = Math.max(...allNumbers);
-				if (maxId >= emailLookup.length) {
-					const proceed = confirm(
-						"Warning: Your CSV has fewer names than the highest ID in the allocation.\n" +
-						"Some IDs will appear as Unknown().\n\nDo you want to continue?"
-					);
-					if (!proceed){return;}
-				}
+            const allNumbers = originalText.match(/\d+/g)?.map(n => parseInt(n, 10)) || [];
+            const maxId = Math.max(...allNumbers);
+            if (maxId >= emailLookup.length) {
+                const proceed = confirm(
+                    "Warning: Your CSV has fewer names than the highest ID in the allocation.\n" +
+                    "Some IDs will appear as Unknown().\n\nDo you want to continue?"
+                );
+                if (!proceed) return;
+            }
 
-				function stringifyList(X) {
-					if (!Array.isArray(X)) return X;
-					return '[' + X.map(el => Array.isArray(el) ? stringifyList(el) : el).join(', ') + ']';
-				}
+            function stringifyList(arr) {
+                if (!Array.isArray(arr)) return arr;
+                return '[' + arr.map(el => Array.isArray(el) ? stringifyList(el) : el).join(', ') + ']';
+            }
 
-				const convertedLines = lines.map(line => {
-					line = line.trim();
-					if (!line.startsWith('[')) return line; 
+            const convertedLines = lines.map(line => {
+                line = line.trim();
+                if (!line.startsWith('[')) return line;
 
-					// Parse the array safely
-					let arr;
-					try {
-						arr = eval(line); 
-					} catch (e) {
-						console.error("Failed to evaluate line:", line, e);
-						return line;
-					}
+                let arr;
+                try {
+                    arr = JSON.parse(line.replace(/'/g, '"'));
+                } catch (err) {
+                    console.error("Failed to parse line:", line, err);
+                    return line;
+                }
 
-					function replaceIds(x) {
-						return x.map(el => {
-							if (Array.isArray(el)) return replaceIds(el);
-							const entry = emailLookup[parseInt(el, 10)];
-							return entry ? entry.name : `Unknown(${el})`;
-						});
-					}
+                function replaceIds(x) {
+                    return x.map(el => {
+                        if (Array.isArray(el)) return replaceIds(el);
+                        const entry = emailLookup[parseInt(el, 10)];
+                        return entry ? entry.name : `Unknown(${el})`;
+                    });
+                }
 
-					const converted = replaceIds(arr);
+                const converted = replaceIds(arr);
+                return stringifyList(converted);
+            });
 
-					return stringifyList(converted);
-				});
+            const convertedText = convertedLines.join('\n');
 
-				const convertedText = convertedLines.join('\n');
+            // Download the converted allocation
+            const blob = new Blob([convertedText], { type: 'text/plain' });
+            const a = document.createElement('a');
+            a.href = URL.createObjectURL(blob);
+            a.download = `allocation_${idx + 1}_names.txt`;
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            setTimeout(() => URL.revokeObjectURL(a.href), 100);
+        };
 
-				// Download the converted allocation
-				const blob = new Blob([convertedText], { type: 'text/plain' });
-				const a = document.createElement('a');
-				a.href = URL.createObjectURL(blob);
-				a.download = `allocation_${idx + 1}_names.txt`;
-				document.body.appendChild(a);
-				a.click();
-				document.body.removeChild(a);
-				setTimeout(() => URL.revokeObjectURL(a.href), 100);
-			};
+        reader.readAsText(file);
+    };
 
-			reader.readAsText(file);
-		};
-
-		csvInput.click();
-	}
+    csvInput.click();
+}
 
 	function stringList(X) {
 		let out = "[";
