@@ -91,15 +91,16 @@
 }
 
 #initalFloatingBox{
-	width:62%;
+	width:64%;
 	padding:1%;
 	background-color:burlywood;
-	margin-left:19%;
+	margin-left:18%;
     z-index: 3;	
 	display:block;
 	position: absolute;
 	margin-top:0.5%;
 	border-radius:5px;
+	overflow:scroll;
 	
 }
 #floatBoxCover {
@@ -212,7 +213,7 @@ a:link, a:visited, a:hover, a:active {
 	</style>
   
   <body>
-    <div id="floatBoxCover" onclick="closeObject('floatBoxCover')">
+     <div id="floatBoxCover" onclick="closeObject('floatBoxCover')">
 		<div id="initalFloatingBox" onclick="event.stopPropagation();" >
 			
 			<div id="actualContent">
@@ -233,20 +234,25 @@ a:link, a:visited, a:hover, a:active {
 					
 					</div>
 					<br>
-					<p>This page will produce an allocation schedule that will allow you to specify group membership for students when creating Zoom breakout rooms.</p>
-
-					<p>Each generated allocation schedule comprises a set of 'rounds', where each round is a set of student groups. The primary constraint for an allocation schedule is that no two students will be paired with each other more than once.</p>
-
-					<p>To generate an allocation schedule, you need to specify:</p>
-
+					<p>This page will produce an allocation schedule that will allow you to specify group membership for students or participants when creating 
+					Zoom breakout rooms or other types of groups.
+					
+					<p>Each generated allocation schedule comprises a set of 'rounds', where each round is a set of participant groups. 
+					The primary constraint for an allocation schedule is that no two participants will be paired with each other more than once.</p>
+					
+					<p>To generate an allocation schedule, you need to specify:
+					
 					<ol>
-						<li>the number of students in your class, a number between 6 and 150 (and some instances for up to 204)</li>
-						<li>the number of rounds required</li>
+						<li>1.	The number of participants, a number between 6 and 150 (and some instances for up to 176)</li>
+						<li>2.	Number of participants in each group (Drop down menu)</li>
 					</ol>
-
-					<p>The range of this second number will vary depending on class size (for example, ten rounds for a class of fifteen is impossible), and it should be a number between 3 and 40. You will be able to see all allocation schedules with at least this number of rounds. If no such allocations exist try reducing the number of rounds.</p>
-
-					<p>Note that you do not specify the  size of the groups: the system will automatically generate
+					<p>The last number is optional and automatically produces options that are valid, although we cannot guarantee all of these options exist. 
+					If no allocations show, it means we currently do not have a solution for that value, and you should try searching with another value. </p>
+					
+					<p>All of our allocations provide the largest number of rounds possible for that configuration of group sizes and participant numbers. </p>
+					
+					<p>Note that you do not specify the size of the groups: the system will automatically generate 
+					
 					<a href="#" data-toggle="popover" title="" data-html="true" data-bs-placement="auto left" data-content="For a set of v participants, a good balanced allocation schedule is a balanced allocation schedule for which:
 						&lt;ol&gt;
 						&lt;li&gt;there are at most 2 group sizes,&lt;/li&gt;
@@ -254,7 +260,11 @@ a:link, a:visited, a:hover, a:active {
 						&lt;li&gt;every round has the same distribution of group sizes,&lt;/li&gt;
 						&lt;li&gt;if v ≥ 12 all groups have size at least 3,&lt;/li&gt;
 						&lt;li&gt;If v ≥ 20 and there are two group sizes then all groups have size between 4 and 6.&lt;/li&gt;
-						&lt;/ol&gt;" data-original-title="Definition">good balanced allocation schedules</a>.  More than one allocation schedule may be available for your combination of class size and number of rounds.</p>
+						&lt;/ol&gt;" data-original-title="Definition">good balanced allocation schedules</a>. 
+					
+					More than one allocation schedule may be available for your combination of group size and number of participants.</p>
+				
+
 				</div>
 			</div>
 		</div>
