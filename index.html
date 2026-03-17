@@ -100,7 +100,6 @@
 	position: absolute;
 	margin-top:0.5%;
 	border-radius:5px;
-	overflow:scroll;
 	
 }
 #floatBoxCover {
@@ -113,6 +112,11 @@
     background-color: rgba(0, 0, 0, 0.5);
     display: block;
 }
+#actualContent{
+	/*Its the inner content that needs to be be scrollable - the container should be fixed size as a percentage of the screen*/
+	overflow:scroll;
+}
+		
 .closeBoxBtn{
 	float:right;
 	coor:#ffffff;
