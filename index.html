@@ -348,11 +348,9 @@
 	function clearSearch() { // clears the input form and sets all to blank
 		document.getElementById('participantsForm').value = '';
 		document.getElementById('roundsForm').value = '';
-	
-		// unchecking all the tick boxes
-		document.querySelectorAll('.categoryFilterClass').forEach(cb => {
-			cb.checked = false;
-		});
+		document.getElementById('allocations_thePlaceThatEverythingGoesOutTo').display = 'none';
+		
+
 	}
 	
 	function closeObject(id){  document.getElementById(id).style.display = "none";  }
