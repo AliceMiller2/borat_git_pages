@@ -9,211 +9,212 @@
   
 	<style>
 
-* { box-sizing: border-box; }
+		* { box-sizing: border-box; }
 
-.clientSide_Output_row {
-    display: flex;
-    flex-direction: column;      
-    justify-content: center;
-    background-color: #ffffff;
-    border-radius: 8px;
-    padding: 12px 14px;
-    margin: 10px 0;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.08);
-}
-
-
-.CSO_row_LHS {
-    width: 100%;
-    text-align: center;
-    margin-bottom: 10px;
-    cursor: pointer;
-}
-
-.CSO_row_LHS p {
-    margin: 0;
-    color: #222;
-    font-size: 1rem;
-    font-weight: 500;
-}
-
-.CSO_row_rightSidePart_area {
-    display: flex;
-    justify-content: center;   
-    align-items: center;
-    gap: 15%;                 
-    width: 100%;
-}
+		.clientSide_Output_row {
+			display: flex;
+			flex-direction: column;      
+			justify-content: center;
+			background-color: #ffffff;
+			border-radius: 8px;
+			padding: 12px 14px;
+			margin: 10px 0;
+			box-shadow: 0 2px 4px rgba(0,0,0,0.08);
+		}
 
 
-.CSO_row_RHS_dwld_btn, .CSO_row_RHS_uploadCSV_btn {
-    width: 25%;
-    min-width: 100px;
-    max-width: 240px;
-    text-align: center;
-    background-color: #3cb043;
-    color: #fff;
-    border: none;
-    border-radius: 6px;
-    padding: 5px 0;
-    font-size: 0.9rem;
-    cursor: pointer;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    transition: all 0.15s ease-in-out;
-}
+		.CSO_row_LHS {
+			width: 100%;
+			text-align: center;
+			margin-bottom: 10px;
+			cursor: pointer;
+		}
 
-.CSO_row_RHS_dwld_btn:hover, .CSO_row_RHS_uploadCSV_btn:hover {
-    background-color: #2e8b2e;
-    transform: translateY(-1px);
-    box-shadow: 0 4px 8px rgba(0,0,0,0.08);
-}
+		.CSO_row_LHS p {
+			margin: 0;
+			color: #222;
+			font-size: 1rem;
+			font-weight: 500;
+		}
+
+		.CSO_row_rightSidePart_area {
+			display: flex;
+			justify-content: center;   
+			align-items: center;
+			gap: 15%;                 
+			width: 100%;
+		}
 
 
-.CSO_row_messageContent {
-    display: none;
-    background-color: #f7fbf7;
-    padding: 12px 14px;
-    border-left: 4px solid #3cb043;
-    margin-top: 6px;
-    border-radius: 0 0 8px 8px;
-    box-shadow: 0 1px 3px rgba(0,0,0,0.04);
-}
+		.CSO_row_RHS_dwld_btn, .CSO_row_RHS_uploadCSV_btn {
+			width: 25%;
+			min-width: 100px;
+			max-width: 240px;
+			text-align: center;
+			background-color: #3cb043;
+			color: #fff;
+			border: none;
+			border-radius: 6px;
+			padding: 5px 0;
+			font-size: 0.9rem;
+			cursor: pointer;
+			display: inline-flex;
+			align-items: center;
+			justify-content: center;
+			transition: all 0.15s ease-in-out;
+		}
+
+		.CSO_row_RHS_dwld_btn:hover, .CSO_row_RHS_uploadCSV_btn:hover {
+			background-color: #2e8b2e;
+			transform: translateY(-1px);
+			box-shadow: 0 4px 8px rgba(0,0,0,0.08);
+		}
 
 
-.CSO_row_lower_hiddenPart_perRound_msg {
-    background-color: #eafbea;
-    padding: 8px 10px;
-    margin: 6px 0;
-    border-radius: 6px;
-    font-size: 0.95rem;
-}
-
-#initalFloatingBox{
-	width:64%;
-	padding:1%;
-	background-color:burlywood;
-	margin-left:18%;
-    z-index: 3;	
-	display:block;
-	position: absolute;
-	margin-top:0.5%;
-	border-radius:5px;
-	
-}
-#floatBoxCover {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%; /* vh means percent of viewport ...?*/
-	height: 100vh; 
-    z-index: 2;
-    background-color: rgba(0, 0, 0, 0.5);
-    display: block;
-}
-#actualContent{
-	/*Its the inner content that needs to be be scrollable - the container should be fixed size as a percentage of the screen*/
-	overflow:scroll;
-	height:96%;
-}
-		
-.closeBoxBtn{
-	float:right;
-	coor:#ffffff;
-	
-}
-.closeBoxBtn:hover{
-	color:#f0f0f1;
-}
-#mainPage{
-	width:74%;
-	margin-left:13%;	
-	margin-top:2%
-}
-
-#InputsSection{
-
-	padding:1%;
-	background-color:aliceblue;
-
-}
-.formInputBoxes{
-	border:1px solid #bfbfbf;
-	border-radius:5px;
-	padding:0.6%;
-	font-size:20px;
-	padding-left:1%;
-	width:96%;
-	margin:1%;
-	
-}
-#QueryButton{
-	border:none;
-	border-radius:4px;
-	color:white;
-	background-color:#0000ff;
-	padding:1%;
-	font-size:18px;
-}
-a:link, a:visited, a:hover, a:active {
-  text-decoration: none;
-}
-#QueryButton:hover{
-	background-color:#9999FF;
-}
-#errorBox{
-	color:red;
-	font-style:bold;
-	
-}
-.boxCentering{
-	justify-content: center; 
-	align-items: center;
-	width:100%;
-	  display: flex;
-}
-
-.clearButton{
-	color:white
-	background-color:white;
-	
-
-}
-.clearButton:hover{
-	color:white
-	background-color:white;
-	
-
-}
-
-#outputsSection{
-	display:none;
-}
+		.CSO_row_messageContent {
+			display: none;
+			background-color: #f7fbf7;
+			padding: 12px 14px;
+			border-left: 4px solid #3cb043;
+			margin-top: 6px;
+			border-radius: 0 0 8px 8px;
+			box-shadow: 0 1px 3px rgba(0,0,0,0.04);
+		}
 
 
-@media (max-width: 520px) {
-    .CSO_row_rightSidePart_area {
-        flex-direction: column;
-        gap: 10px;
-    }
+		.CSO_row_lower_hiddenPart_perRound_msg {
+			background-color: #eafbea;
+			padding: 8px 10px;
+			margin: 6px 0;
+			border-radius: 6px;
+			font-size: 0.95rem;
+		}
+		#floatBoxCover { /* The dark background*/
+			position: fixed;
+			top: 0;
+			left: 0;
+			width: 100%; 
+			height: 100vh; 
+			z-index: 2;
+			background-color: rgba(0, 0, 0, 0.5);
+			display: block;
+		}
+		#initalFloatingBox{
+			width:66%;
+			padding:1%;
+			background-color:burlywood;
+			margin-left:18%;
+			z-index: 3;	
+			display:block;
+			position: absolute;
+			margin-top:0.5%;
+			border-radius:5px;
+			height: 90%; 
+			
+		}
 
-    .CSO_row_RHS_dwld_btn,
-    .CSO_row_RHS_uploadCSV_btn {
-        width: 80%;
-        max-width: none;
-    }
-}
+		#actualContent{
+			overflow-y: scroll;   
+			overflow-x: hidden;
+			height:96%;
+		}
+				
+		.closeBoxBtn{
+			float:right;
+			coor:#ffffff;
+			
+		}
+		.closeBoxBtn:hover{
+			color:#f0f0f1;
+		}
+		#mainPage{
+			width:74%;
+			margin-left:13%;	
+			margin-top:2%
+		}
 
-.categoryLabel {
-    margin-right: 16px;
-}
+		#InputsSection{
+
+			padding:1%;
+			background-color:aliceblue;
+
+		}
+		.formInputBoxes{
+			border:1px solid #bfbfbf;
+			border-radius:5px;
+			padding:0.6%;
+			font-size:20px;
+			padding-left:1%;
+			width:96%;
+			margin:1%;
+			
+		}
+		#QueryButton{
+			border:none;
+			border-radius:4px;
+			color:white;
+			background-color:#0000ff;
+			padding:1%;
+			font-size:18px;
+		}
+		a:link, a:visited, a:hover, a:active {
+		  text-decoration: none;
+		}
+		#QueryButton:hover{
+			background-color:#9999FF;
+		}
+		#errorBox{
+			color:red;
+			font-style:bold;
+			
+		}
+		.boxCentering{
+			justify-content: center; 
+			align-items: center;
+			width:100%;
+			  display: flex;
+		}
+
+		.clearButton{
+			color:white
+			background-color:white;
+			
+
+		}
+		.clearButton:hover{
+			color:white
+			background-color:white;
+			
+
+		}
+
+		#outputsSection{
+			display:none;
+		}
 
 
-.categoryFilterClass{
-    transform: scale(1.3);
-    vertical-align: middle;
-}
+		@media (max-width: 520px) {
+			.CSO_row_rightSidePart_area {
+				flex-direction: column;
+				gap: 10px;
+			}
+
+			.CSO_row_RHS_dwld_btn,
+			.CSO_row_RHS_uploadCSV_btn {
+				width: 80%;
+				max-width: none;
+			}
+		}
+
+		.categoryLabel {
+			margin-right: 16px;
+		}
+
+
+		.categoryFilterClass{
+			transform: scale(1.3);
+			vertical-align: middle;
+		}
 
 	</style>
   
@@ -327,6 +328,11 @@ a:link, a:visited, a:hover, a:active {
 		<div class="row">
 			<div class="col-sm">
 				<p>Provided by the School of Computing Science at the University of Glasgow.</p>
+			</div>
+			<div class="col-sm">
+				<div onclick="window.location.reload();">
+					<i class="fa fa-info"></i>
+				</div>
 			</div>
 		</div>
 	</div>
